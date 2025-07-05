@@ -58,12 +58,12 @@ func main() {
 	ports := make(chan uint16, *workers_count)
 	results := make(chan uint16)
 	// start goroutines waiting for channel
-	capacity := int8(cap(ports))
+	capacity := uint16(cap(ports))
 	progress_trigger := make(chan bool)
 	go UpdateProgress(uint16(*last_port-*first_port), progress_trigger)
 
 	fmt.Print("\t  0.00 %")
-	for i := int8(0); i < capacity; i++ {
+	for i := uint16(0); i < capacity; i++ {
 		go WorkerPool(address, ports, results, progress_trigger) // create 100 go routines, which their execution is blocked on for loop,
 		// until something is sent to the channel
 	}
